@@ -1,5 +1,13 @@
-# Use a imagem oficial do Node.js como base
-FROM node:18-alpine
+# Use a imagem oficial do Ubuntu como base
+FROM ubuntu:latest
+
+# Instala o Node.js e npm
+RUN apt-get update && apt-get install -y \
+    curl \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /usr/src/app
