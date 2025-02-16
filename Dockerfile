@@ -1,5 +1,5 @@
-# Use uma imagem oficial do Node.js baseada no Debian
-FROM node:18-slim
+# Use a imagem oficial do Bun
+FROM oven/bun:1
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /usr/src/app
@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Instala as dependências
-RUN npm install --only=production
+RUN bun install --production
 
 # Copia o restante do código fonte
 COPY . .
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Comando para iniciar o servidor
-CMD ["npm", "start"]
+CMD ["bun", "src/app.ts"]
