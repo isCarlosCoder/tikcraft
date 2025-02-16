@@ -13,9 +13,6 @@ RUN npm install --only=production
 # Copia o restante do código fonte
 COPY . .
 
-# Compila o TypeScript
-RUN npm run build
-
 # Expõe a porta que o servidor usa
 EXPOSE 3000
 
