@@ -1,26 +1,17 @@
-# Use a imagem oficial do Ubuntu como base
-FROM ubuntu:latest
-
-# Instala o Node.js e npm
-RUN apt-get update && apt-get install -y \
-    curl \
-    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Use uma imagem oficial do Node.js baseada no Debian
+FROM node:18-slim
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /usr/src/app
 
 # Copia os arquivos de configuração do projeto
 COPY package*.json ./
-COPY tsconfig.json ./
 
 # Instala as dependências
-RUN npm install
+RUN npm install --only=production
 
-# Copia o código fonte
-COPY src/ ./src/
+# Copia o restante do código fonte
+COPY . .
 
 # Compila o TypeScript
 RUN npm run build
